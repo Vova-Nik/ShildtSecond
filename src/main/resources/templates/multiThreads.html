@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="https://img.icons8.com/doodle/48/000000/bookmark-ribbon.png" type="image/png">
+
+    <!--    <link rel="stylesheet" href="./static/assets/css/style.css">-->
+    <!-- <link rel="stylesheet" href = "assets/css/style.css" type="text/css"> -->
+
+<!--    <script src="https://vova-nik.github.io/get.borders/getborders.js"></script>-->
+
+    <link rel="stylesheet" th:href="@{/assets/css/style.css}" type="text/css"/>
+    <link rel="stylesheet" href="../static/assets/css/style.css" type="text/css">
+
+
+    <!--    <script src="assets/js/script.js"></script>-->
+
+    <title th:text="${title}"/></title>
+</head>
+<body>
+<div class="main_container multi">
+    <header th:insert="bloks/header :: header"></header>
+
+    <div class="for_script"></div>
+    <div th:text="'Button nuvber , ' + ${btnClicked} + '!'" class="for_script" ></div>
+    <!--        <img src="https://docs.spring.io/spring/docs/3.2.x/spring-framework-reference/html/images/spring-overview.png"  alt="">-->
+<!--    <p th:text="'Hello, ' + ${message} + '!'"/></p>-->
+    <button class="comon run">Run!</button>
+
+        <script src="assets/js/script.js"></script>
+<!--        <script src="../static/assets/js/script.js"></script>-->
+</div>
+</body>
+
+
+</html>

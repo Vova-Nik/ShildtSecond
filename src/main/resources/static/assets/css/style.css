@@ -1,0 +1,72 @@
+.body{
+    background-color: beige;
+}
+.main_container{
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: bisque;
+}
+
+/*.my-row{*/
+/*    min-height: 100px;*/
+/*}*/
+
+.logo{
+    color: brown;
+}
+
+.header{
+    display: flex;
+    margin: 40px 0;
+    background-color: bisque;
+    padding: 10px 20px;
+    justify-content: space-between;
+    border-bottom: 1px solid red;
+    margin-bottom: 10px;
+}
+.nav {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 30px 0 0 0;
+}
+
+.link{
+    padding: 0 20px;
+    color: brown;
+    text-decoration: none;
+}
+
+.link:hover{
+    text-decoration: none;
+    color: darkred;
+    /*font-weight: bold;*/
+    text-shadow: 2px 2px 2px #CE5937;
+}
+
+/*****************************************Multy Threads**********************************************************/
+.main_container.multi{
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: beige;
+}
+
+
+/*.reddy{*/
+/*    background-color: coral;*/
+/*}*/
+
+/*.browny{*/
+/*    background-color: burlywood;*/
+/*}*/
+/*******************************************************/
+
+.for_script{
+    color: blue;
+    font-size: 20px;
+}
+
+.rest-btn{
+    background-color: deepskyblue;
+    width: 200px;
+}
