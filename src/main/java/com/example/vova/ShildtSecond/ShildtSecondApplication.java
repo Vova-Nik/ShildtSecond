@@ -8,7 +8,7 @@ public class ShildtSecondApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(ShildtSecondApplication.class, args);
-		//	System.out.print("Hellow Vovchik");
-		System.out.println("Mama" + "Mila" + "Ramu");
+		System.out.print("Hellow Vovchik from main after SpringApplication.run");
+
 	}
 }

@@ -1,6 +1,8 @@
 package com.example.vova.ShildtSecond.Controllers;
 
+import com.example.vova.ShildtSecond.Dispatcher;
 import com.fasterxml.jackson.databind.JsonSerializer;
+//import org.apache.catalina.core.ApplicationContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -9,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import com.google.gson.Gson;
+import org.springframework.context.ApplicationContext;
+
 
 import java.util.HashMap;
 
@@ -16,6 +20,8 @@ import java.util.HashMap;
 
 public class MainController {
     String myName = "Vovchik";
+
+    @Autowired private ApplicationContext context;
 
     @RequestMapping(value = "/")
 
@@ -44,9 +50,6 @@ public class MainController {
 
         System.out.println("multiThreads button mapping " + btnClicked);
 
-//        @Autowired
-//                Dispatcher.getMessage();
-
 
         //HashMap<String, String> respBody = new HashMap<>();
         HashMap<String, Object> respBody = new HashMap<>();
@@ -56,6 +59,9 @@ public class MainController {
 
         Gson gson = new Gson();
         String jsonString = gson.toJson(respBody);
+
+        Dispatcher dispatcher = context.getBean(Dispatcher.class);
+        dispatcher.sayHi();
 
 
         return ResponseEntity.ok()

@@ -1,26 +1,37 @@
 package com.example.vova.ShildtSecond;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
+
 @Component
 @Scope("singleton") // change to prototype
+
 //@PropertySource("classpath:my.properties")
-@PropertySource("application.properties")
+
 public class Dispatcher {
-    @Value("${dispatcher.max_producers}")
+  //  @Value("${dispatcher.max_producers}")
     private String max_producers;
 
-    @Value("${dispatcher.max_consumers}")
+   // @Value("${dispatcher.max_consumers}")
     private String max_consumers;
 
     Dispatcher(){
-       System.out.print("max_producers " + max_producers + " max_consumers " + max_consumers + " ");
+       System.out.print("Dispatcher constructor performed \n");
     }
-
+    @PostConstruct
+    void init(){
+        System.out.print("Dispatcher  PostConstruct performed \n");
+    }
+    @Autowired
+    public void sayHi(){
+        System.out.println("Dispatcher  sayHi performed");
+    }
 
 
     public String getMessage() {
