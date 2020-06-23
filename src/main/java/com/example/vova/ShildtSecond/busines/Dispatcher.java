@@ -1,4 +1,4 @@
-package com.example.vova.ShildtSecond;
+package com.example.vova.ShildtSecond.busines;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
-
 import javax.annotation.PostConstruct;
 
 @Component
@@ -17,6 +16,7 @@ import javax.annotation.PostConstruct;
 public class Dispatcher {
   //  @Value("${dispatcher.max_producers}")
     private String max_producers;
+    private int callCounter = 0;
 
    // @Value("${dispatcher.max_consumers}")
     private String max_consumers;
@@ -28,9 +28,10 @@ public class Dispatcher {
     void init(){
         System.out.print("Dispatcher  PostConstruct performed \n");
     }
-    @Autowired
+//    @Autowired
     public void sayHi(){
-        System.out.println("Dispatcher  sayHi performed");
+        callCounter ++;
+        System.out.println("Dispatcher  sayHi performed. Counter = " + callCounter);
     }
 
 
