@@ -2,6 +2,7 @@ package com.example.vova.ShildtSecond.Controllers;
 
 import com.example.vova.ShildtSecond.busines.Dispatcher;
 //import org.apache.catalina.core.ApplicationContext;
+import com.example.vova.ShildtSecond.busines.ProducerManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -58,7 +59,11 @@ public class MainController {
         String jsonString = gson.toJson(respBody);
 
         Dispatcher dispatcher = context.getBean(Dispatcher.class);
+        ProducerManager producerManager = context.getBean(ProducerManager.class);
         dispatcher.sayHi();
+
+        producerManager.incProd();
+        System.out.println(context.toString());
 
 
         return ResponseEntity.ok()
