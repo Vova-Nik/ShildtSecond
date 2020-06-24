@@ -70,6 +70,17 @@ public class MainController {
                 .header("ctr", "foo")
                 .body(jsonString);
     }
+
+
+    @RequestMapping(value = "/ThreadsVue")
+    public String vue(ModelMap model) {
+
+        System.out.println("vue simply mapping");
+//        model.addAttribute("message", "multiThreads");
+//        model.addAttribute("title", "Sh2 multiThreads");
+
+        return "ThreadsVue";
+    }
 }
 
 

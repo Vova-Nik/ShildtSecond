@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Scope("singleton")
 public class Q {
+    int maxItemsInStore = 12;
     int store;
 
     public void Q() {
@@ -13,7 +14,16 @@ public class Q {
         System.out.println("Q created");
     }
 
-    public void receiveProd(Producer prod) {
+    public synchronized  void  putProd(Producer prod) {
+
+        while(store >= maxItemsInStore)
+        {
+            try{
+                wait(100);
+            }catch(Exception e){
+                System.out.println("ReceiveProd waiting exception");
+            }
+        }
         store++;
     }
 
@@ -23,4 +33,6 @@ public class Q {
         store--;
         return true;
     }
+
+
 }

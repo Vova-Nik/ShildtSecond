@@ -34,10 +34,7 @@ public class Dispatcher {
 
     @PostConstruct
     void init(){
-
-       // producerManager = context.getBean(ProducerManager.class);
         q = context.getBean(Q.class);
-       // createProducerManager();
         System.out.print("Dispatcher  PostConstruct performed \n");
     }
 
@@ -45,7 +42,6 @@ public class Dispatcher {
         callCounter ++;
         System.out.println("Dispatcher  sayHi performed. Counter = " + callCounter);
     }
-
 
     public String getMessage() {
         return String.format("max_producers %d max_consumers %d ", Integer.parseInt(max_producers), Integer.parseInt(max_consumers));

@@ -45,15 +45,21 @@ public class Producer extends Thread {
         isRunning = true;
         while (isRunning) {
             System.out.println(" Producer # " + myNumber + "running");
-            q.receiveProd(selfRef);
+            produceOne();
             try {
-                // Sleep 1030 miliseconds.
-                Thread.sleep(timeInterval);
+                 Thread.sleep(timeInterval);
             } catch (InterruptedException e) {
                 System.out.println("Exception in Producer # " + myNumber);
             }
         }
         System.out.println("  - ==> HelloThread stopped");
+    }
+
+    private void produceOne()
+    {
+        q.putProd(selfRef);
+        System.out.println("Producer # " + myNumber + " put 1more item");
+
     }
 }
 

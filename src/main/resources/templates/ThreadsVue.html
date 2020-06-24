@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://unpkg.com/vue"></script>
+    <title>Vue</title>
+</head>
+<body>
+<h3>VVV</h3>
+<hr>
+<div id="components-demo">
+    <button-counter></button-counter>
+
+    <button-counter></button-counter>
+
+    <button-counter></button-counter>
+</div>
+<hr>
+<script>
+    Vue.component('button-counter', {
+        data: function () {
+            return {
+                count: 0
+            }
+        },
+        template: '<button v-on:click="count=count+2">You clicked me {{ count }} times.</button> hi there '
+
+    })
+    new Vue({el: '#components-demo'})
+
+
+</script>
+</body>
+</html>
