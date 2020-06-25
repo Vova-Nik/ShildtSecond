@@ -1,34 +1,93 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-    <meta charset="UTF-8">
+    <title>My first Vue app</title>
     <script src="https://unpkg.com/vue"></script>
-    <title>Vue</title>
+<!--    <link rel="stylesheet" href="css/vstyle.css">-->
+    <link rel="stylesheet" th:href="@{/assets/css/vstyle.css}" type="text/css"/>
+    <link rel="stylesheet" href="../static/assets/css/vstyle.css" type="text/css">
 </head>
-<body>
-<h3>VVV</h3>
-<hr>
-<div id="components-demo">
-    <button-counter></button-counter>
+<div class="main-container">
 
-    <button-counter></button-counter>
+    <div id="components-demo" class="grid-container">
+        <div class="hproducers"><h3 class="mh3">Producers</h3></div>
+        <div class="hq"><h3 class="mh3">Store</h3></div>
+        <div class="hconsumers"><h3 class="mh3">Consumers</h3></div>
 
-    <button-counter></button-counter>
-</div>
-<hr>
-<script>
-    Vue.component('button-counter', {
-        data: function () {
-            return {
-                count: 0
+        <div class="producers"><info-area class="info-area" text="vvvvvvvvvvv" title="Producers"/></div>
+        <div class="q"></div>
+        <div class="consumers">consumers</div>
+
+        <div class="pbi"><button-counter  title="More" btnaction="prodinc" class="btn-counter"></button-counter></div>
+        <div class="pbd"><button-counter  title="Less" btnaction="proddec" class="btn-counter"></button-counter></div>
+        <div class="invent"><button-counter  title="To invent" btnaction="inventarization" class="btn-counter"></button-counter></div>
+        <div class="cbi"><button-counter  title="More" btnaction="consinc" class="btn-counter"></button-counter></div>
+        <div class="cbd"><button-counter  title="Less" btnaction="consdec" class="btn-counter"></button-counter></div>
+
+
+    </div>
+
+    <!-- <script src="js/app5.js"></script> -->
+    <!-- --------------------------------------------------------------- -->
+
+
+    <script>
+        Vue.component('button-counter', {
+            data: function () {
+                return {
+                    count: 0,
+                }
+            },
+
+            template: '<div v-on:click = "restQery()">  {{title}} {{ count }}.</div>',
+            props: ['title', "btnaction", "state"],
+            methods: {
+                restQery: function () {
+                    let a = 128;
+                    if( this.title == "To invent")
+                    {
+                        this.btnaction ="inventarization";
+                        this.title = "To work"
+                    }
+                    else
+                    if(this.title == "To work")
+                    {
+                        this.btnaction ="work";
+                        this.title = "To invent"
+                    }
+
+                    this.count = this.count + 1;
+                    console.log(this.title, ' -- ', this.btnaction);
+                }
             }
-        },
-        template: '<button v-on:click="count=count+2">You clicked me {{ count }} times.</button> hi there '
 
-    })
-    new Vue({el: '#components-demo'})
+        })
 
 
-</script>
-</body>
+        Vue.component('info-area', {
+            data: function () {
+                return {
+                    count: 0,
+                }
+            },
+
+            template: '<div> {{text}}</div>',
+            props: ['title',"state", "text"],
+            methods: {
+                update: function () {
+                    console.log(this.title, ' -- ', this.text);
+                }
+            }
+        })
+
+        new Vue({
+            el: '#components-demo'
+        })
+
+    </script>
+
+    <!-- --------------------------------------------------------------- -->
+    </body>
+
 </html>

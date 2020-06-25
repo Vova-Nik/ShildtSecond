@@ -1,0 +1,119 @@
+* {box-sizing: border-box;}
+
+.main-container{
+    width: 1000px;
+    margin: 0 auto;
+    font-family: Arial, Helvetica, sans-serif;
+    box-sizing: border-box;
+}
+
+.mh3{
+    text-align: center;
+    margin: auto auto;
+    padding: 0;
+}
+
+.grid-container {
+    background-color: rgb(235, 240, 250);
+    padding: 20px 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 0.5fr 1fr 1fr 0.5fr 1fr 1fr 1fr;
+    grid-template-rows: 20px 30px minmax(300px, 500px) 40px 1fr;
+    gap: 1px 1px;
+    grid-template-areas: ". . . . . . . . . ."". hproducers hproducers . hq hq . hconsumers hconsumers ."". producers producers . q q . consumers consumers ."". pbi pbd . invent invent . cbi cbd ."". . . . . . . . . .";
+}
+
+.hproducers {
+    grid-area: hproducers;
+}
+
+.hq {
+    grid-area: hq;
+}
+
+.hconsumers {
+    grid-area: hconsumers;
+}
+
+.producers {
+    grid-area: producers;
+    border: 1px solid blue;
+    border-radius: 4px;
+}
+
+.q {
+    grid-area: q;
+    border: 1px solid blue;
+    border-radius: 4px;
+}
+
+.consumers {
+    grid-area: consumers;
+    border: 1px solid blue;
+    border-radius: 4px;
+}
+
+.pbi{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-area: pbi;
+}
+
+.pbd{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-area: pbd;
+}
+
+.invent{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-area: invent;
+}
+
+.cbi{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-area: cbi;
+}
+
+.cbd{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-area: cbd;
+}
+
+.btn-counter{
+    width:90%;
+    height: 80%;
+    text-align: center;
+    line-height: 30px;
+    border-radius: 4px;
+    border: 1px solid blue;
+}
+
+.btn-counter:hover{
+    cursor: pointer;
+    background-color: #fff;
+    box-shadow: 4px 4px 8px 0px rgba(0,0,0,0.75);
+    font-weight: 600;
+}
+
+.btn-counter:active{
+    width:86%;
+    height: 76%;
+}
+
+.info-area{
+    width: 100%;
+    height: 100%;
+    padding: 8px;
+    /* background-color: #eeeeff; */
+    background-color: rgb(249, 249, 255);
+
+}
