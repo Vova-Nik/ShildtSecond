@@ -10,7 +10,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("message")
-public class MessageController {
+public class RestReqController {
     private int counter = 4;
 
     private List<Map<String, String>> messages = new ArrayList<Map<String, String>>() {{

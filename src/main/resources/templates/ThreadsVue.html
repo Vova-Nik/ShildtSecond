@@ -57,6 +57,8 @@
                         this.title = "To invent"
                     }
 
+                    fetch('http://127.0.0.1:8081//message', { method: 'GET', headers: {'Content-Type': 'application/json', 'btnaction': this.btnaction }}).then(result => console.log(result))
+
                     this.count = this.count + 1;
                     console.log(this.title, ' -- ', this.btnaction);
                 }
