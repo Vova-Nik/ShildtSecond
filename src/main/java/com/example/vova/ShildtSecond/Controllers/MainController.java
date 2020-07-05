@@ -36,12 +36,13 @@ public class MainController {
         return "multiThreads";
     }
 
+
     @RequestMapping(value = "/vue")
     public String vue(ModelMap model) {
         System.out.println("multiThreads simply mapping");
         return "ThreadsVue";
     }
-
+    @CrossOrigin
     @RequestMapping(value = "/multiThreads1", method = RequestMethod.POST)
     public ResponseEntity<String> doubleNumber(@RequestHeader("btnClicked") int btnClicked) {
 
@@ -60,7 +61,7 @@ public class MainController {
         dispatcher.sayHi();
 
         return ResponseEntity.ok()
-                .header("ctr", "foo")
+                .header( "Access-Control-Allow-Origin *", "ctr", "foo")
                 .body(jsonString);
     }
 }

@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
+@CrossOrigin
 @RequestMapping("message")
 public class RestReqController {
     private int counter = 4;
@@ -39,9 +40,7 @@ public class RestReqController {
     @PostMapping
     public Map<String, String> create(@RequestBody Map<String, String> message) {
         message.put("id", String.valueOf(counter++));
-
         messages.add(message);
-
         return message;
     }
 
