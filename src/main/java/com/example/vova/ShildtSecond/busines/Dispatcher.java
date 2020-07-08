@@ -54,6 +54,6 @@ public class Dispatcher {
     }
 
     public String getState(){
-        return producerManager.toString();
+        return producerManager.getState();
     }
 }

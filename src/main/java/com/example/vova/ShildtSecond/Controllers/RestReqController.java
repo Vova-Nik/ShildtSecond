@@ -1,6 +1,8 @@
 package com.example.vova.ShildtSecond.Controllers;
 
+import com.example.vova.ShildtSecond.busines.Dispatcher;
 import com.example.vova.ShildtSecond.exceptions.NotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -12,18 +14,25 @@ import java.util.Map;
 @CrossOrigin
 @RequestMapping("message")
 public class RestReqController {
-    private int counter = 4;
+    private int counter = 0;
 
     private List<Map<String, String>> messages = new ArrayList<Map<String, String>>() {{
         add(new HashMap<String, String>() {{ put("id", "1"); put("text", "First message"); }});
         add(new HashMap<String, String>() {{ put("id", "2"); put("text", "Second message"); }});
         add(new HashMap<String, String>() {{ put("id", "3"); put("text", "Third message"); }});
     }};
+    @Autowired
+    Dispatcher dispatcher;// = context.getBean(Dispatcher.class);
 
     @CrossOrigin
     @GetMapping
-    public List<Map<String, String>> list() {
-        return messages;
+   // public List<Map<String, String>> list() {
+    public String list() {
+
+        System.out.println("Get request! " + counter);
+        System.out.println(dispatcher.getState());
+        counter++;
+        return "messages";
     }
 
     @GetMapping("{id}")

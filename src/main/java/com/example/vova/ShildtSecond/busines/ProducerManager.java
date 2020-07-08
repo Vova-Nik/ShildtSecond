@@ -62,12 +62,15 @@ public class ProducerManager {
     }
 
     public String getState() {
-        String state = "";
-        for (Producer p : producers
-             ) {
-            state = state + p.toString() + ",";
-        }
-        return "{producers:" + state + "},";
+        StringBuilder state = new StringBuilder();
+   //     for (Producer p : producers
+   //          ) {
+
+            state.append("{" + p.toString() +"}");
+    //    }
+
+        System.out.println("ProducerManager" + state.toString());
+        return "{producers:" + state.toString() + "},";
     }
 
 }
