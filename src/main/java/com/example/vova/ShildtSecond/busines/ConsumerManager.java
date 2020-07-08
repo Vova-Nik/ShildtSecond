@@ -10,28 +10,39 @@ import javax.annotation.PostConstruct;
 @Component
 @Scope("singleton")
 public class ConsumerManager {
-    @Autowired
-    private ApplicationContext context;
-    Dispatcher dispatcher;
+//    @Autowired
+//    private ApplicationContext context;
 
+//@Autowired
+    private Dispatcher dispatcher;
     boolean initiated = false;
     Consumer[] consumers;
     private int pointer = 0;
     private int consumerLength = 32;
+    @Autowired
     private Q q;
 
+//    @Autowired
+//    ConsumerManager(Dispatcher d){
+//        dispatcher = d;
+//        System.out.println(consumerLength + " ConsumerManager constructed (default constructor)");
+//    }
+
     ConsumerManager(){
-        System.out.println(8 + " ConsumerManager constructed (default constructor)");
+        System.out.println(consumerLength + " ConsumerManager constructed (default constructor)");
     }
 
     @PostConstruct
-    public void init() {
+    public void PostConstruct() {
         initiated = true;
-        dispatcher = context.getBean(Dispatcher.class);
-
-        q =  dispatcher.getQ();
+//        q =  dispatcher.getQ();
         consumers = new Consumer[consumerLength];
         System.out.println(consumerLength + " Consumers initiated in @postConstruct");
+    }
+
+    public void init(Dispatcher d){
+        dispatcher = d;
+        q = dispatcher.getQ();
     }
 
     private boolean incCons(){

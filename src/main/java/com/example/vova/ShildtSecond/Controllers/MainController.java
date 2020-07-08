@@ -49,20 +49,21 @@ public class MainController {
         int reqCounter;
         System.out.println("multiThreads button mapping " + btnClicked);
         //HashMap<String, String> respBody = new HashMap<>();
-        HashMap<String, Object> respBody = new HashMap<>();
-        respBody.put("param1", "Hi");
-        respBody.put("param2", "There");
-        respBody.put("param3", 12);
+//        HashMap<String, Object> respBody = new HashMap<>();
+//        respBody.put("param1", "Hi");
+//        respBody.put("param2", "There");
+//        respBody.put("param3", 12);
 
-        Gson gson = new Gson();
-        String jsonString = gson.toJson(respBody);
+//        Gson gson = new Gson();
+//        String jsonString = gson.toJson(respBody);
 
         Dispatcher dispatcher = context.getBean(Dispatcher.class);
         dispatcher.sayHi();
 
+
         return ResponseEntity.ok()
-                .header( "Access-Control-Allow-Origin *", "ctr", "foo")
-                .body(jsonString);
+                .header( "ctr", "foo")
+                .body(dispatcher.toString());
     }
 }
 

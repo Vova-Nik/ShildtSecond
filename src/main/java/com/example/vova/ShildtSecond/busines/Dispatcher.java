@@ -18,23 +18,25 @@ import java.util.ArrayList;
 public class Dispatcher {
   //  @Value("${dispatcher.max_producers}")
     private String max_producers;
+    private String max_consumers;
     private int callCounter = 0;
     Q q;
+    private final ProducerManager producerManager;
+    private final ConsumerManager consumerManager;
 
-    ProducerManager producerManager;
+//    StateObject stateObject;
+
     @Autowired
-    private ApplicationContext context;
-
-   // @Value("${dispatcher.max_consumers}")
-    private String max_consumers;
-
-    Dispatcher(){
+    Dispatcher(ProducerManager pm, ConsumerManager cm, Q qq){
+        producerManager = pm;
+        consumerManager = cm;
+        q = qq;
+//        stateObject = new StateObject();
         System.out.print("Dispatcher constructor performed \n");
     }
 
     @PostConstruct
-    void init(){
-        q = context.getBean(Q.class);
+    void PostConstruct(){
         System.out.print("Dispatcher  PostConstruct performed \n");
     }
 
@@ -49,5 +51,9 @@ public class Dispatcher {
 
     public Q getQ() {
         return q;
+    }
+
+    public String getState(){
+        return producerManager.toString();
     }
 }

@@ -11,12 +11,12 @@ import java.util.ArrayList;
 
 
 public class Producer extends Thread {
-    //static ArrayList<Producer> producers = new ArrayList();
 
     int myNumber;
     private int timeInterval;
     boolean isRunning = false;
     Q q;
+    private int produced;
     Producer selfRef;
 
     public Producer(int n, Q q) {
@@ -25,13 +25,20 @@ public class Producer extends Thread {
         myNumber = n;
         this.q = q;
         selfRef = this;
+        produced = 0;
     }
-
 
     public boolean setTimeInterval(int num) {
         timeInterval = num;
         System.out.println("Producer initiated " + num);
         return true;
+    }
+
+    public int getTimeInterval() {
+        return timeInterval;
+    }
+    public int getProduced() {
+        return produced;
     }
 
     public void stopYourself() {
@@ -44,7 +51,6 @@ public class Producer extends Thread {
             return;
         isRunning = true;
         while (isRunning) {
-            System.out.println(" Producer # " + myNumber + "running");
             produceOne();
             try {
                  Thread.sleep(timeInterval);
@@ -52,14 +58,25 @@ public class Producer extends Thread {
                 System.out.println("Exception in Producer # " + myNumber);
             }
         }
-        System.out.println("  - ==> HelloThread stopped");
+        System.out.println("  - ==> Hello Thread stopped");
     }
 
     private void produceOne()
     {
         q.putProd(selfRef);
-        System.out.println("Producer # " + myNumber + " put 1more item");
-
+        System.out.println("Producer # " + myNumber + " put 1 more item");
+        produced++;
     }
+    @Override
+    public String toString(){
+        return  "{" +
+                "class:ProducerState," +
+                "myNumber:" + myNumber +
+                ", timeInterval:" + timeInterval +
+                ",isRunning:" + isRunning +
+                ",produced:" + produced +
+                '}';
+    }
+
 }
 

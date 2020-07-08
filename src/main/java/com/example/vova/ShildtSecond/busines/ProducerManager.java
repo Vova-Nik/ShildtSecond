@@ -10,51 +10,64 @@ import javax.annotation.PostConstruct;
 @Component
 @Scope("singleton")
 public class ProducerManager {
-    @Autowired
-    private ApplicationContext context;
-    Dispatcher dispatcher;
 
     boolean initiated = false;
-    Producer[] producers;
+    private Producer[] producers;
+    //    private ProducerState[] producerStates;
     private int pointer = 0;
     private int producersLength = 8;
     private Q q;
+    private Dispatcher dispatcher;
+//    ProducerState producersState;
 
-     ProducerManager(){
-        System.out.println(8 + " Producers constructed (default constructor)");
+    ProducerManager() {
+        System.out.println(producersLength + " Producers constructed (default constructor)");
     }
 
     @PostConstruct
-    public void init() {
+    public void PostConstruct() {
         initiated = true;
-        dispatcher = context.getBean(Dispatcher.class);
-        q =  dispatcher.getQ();
-        producers = new Producer[8];
-       // incProd();
+        producers = new Producer[producersLength];
+//        producerStates = new ProducerState[producersLength];
         System.out.println(producers.length + " Producers initiated in @postConstruct");
     }
 
-    public boolean incProd(){
-        if(pointer == (producersLength-1))
+    public void init(Dispatcher d) {
+        dispatcher = d;
+        q = dispatcher.getQ();
+    }
+
+    public boolean incProd() {
+        if (pointer == (producersLength - 1))
             return false;
-        pointer ++;
-        if(producers[pointer] == null)
+        pointer++;
+        if (producers[pointer] == null)
             producers[pointer] = new Producer(pointer, q);
         producers[pointer].run();
         return true;
     }
 
-    public boolean decProd(){
-        if(pointer < 1)
+    public boolean decProd() {
+        if (pointer < 1)
             return false;
         producers[pointer].stopYourself();
         pointer--;
         return true;
     }
 
-    public void stop(){
-        for (Producer pm:producers) {
+    public void stop() {
+        for (Producer pm : producers) {
             pm.stopYourself();
         }
     }
+
+    public String getState() {
+        String state = "";
+        for (Producer p : producers
+             ) {
+            state = state + p.toString() + ",";
+        }
+        return "{producers:" + state + "},";
+    }
+
 }
