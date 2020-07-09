@@ -14,7 +14,8 @@ import java.util.Map;
 @CrossOrigin
 @RequestMapping("message")
 public class RestReqController {
-    private int counter = 0;
+    private int getCounter = 0;
+    private int putCounter = 0;
 
     private List<Map<String, String>> messages = new ArrayList<Map<String, String>>() {{
         add(new HashMap<String, String>() {{ put("id", "1"); put("text", "First message"); }});
@@ -22,16 +23,16 @@ public class RestReqController {
         add(new HashMap<String, String>() {{ put("id", "3"); put("text", "Third message"); }});
     }};
     @Autowired
-    Dispatcher dispatcher;// = context.getBean(Dispatcher.class);
+    Dispatcher dispatcher; // = context.getBean(Dispatcher.class);
 
     @CrossOrigin
     @GetMapping
    // public List<Map<String, String>> list() {
     public String list() {
 
-        System.out.println("Get request! " + counter);
+        System.out.println("Get request! " + getCounter);
         System.out.println(dispatcher.getState());
-        counter++;
+        getCounter++;
         return "messages";
     }
 
@@ -47,11 +48,18 @@ public class RestReqController {
                 .orElseThrow(NotFoundException::new);
     }
 
+    @CrossOrigin
     @PostMapping
-    public Map<String, String> create(@RequestBody Map<String, String> message) {
-        message.put("id", String.valueOf(counter++));
-        messages.add(message);
-        return message;
+    public String buttons(@RequestBody Map<String, String> message) {
+        putCounter ++;
+        if(!message.containsKey("btnId")) {
+            System.out.println("Put request! Bad request data" );
+            return ("{\"processed\":false}");
+        }
+
+        System.out.println(dispatcher.processReq(Integer.parseInt(message.get("btnId"))));
+        return dispatcher.processReq(Integer.parseInt(message.get("btnId")));
+//        return ("{\"processed\":true}");
     }
 
     @PutMapping("{id}")

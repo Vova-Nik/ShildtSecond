@@ -1,35 +1,31 @@
 package com.example.vova.ShildtSecond.busines;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import java.util.ArrayList;
 
 @Component
 @Scope("singleton")
 public class ProducerManager {
 
     boolean initiated = false;
-    private Producer[] producers;
-    //    private ProducerState[] producerStates;
+    private ArrayList<Producer> producers;
     private int pointer = 0;
-    private int producersLength = 8;
+    private int producersMaxQant = 8;
     private Q q;
     private Dispatcher dispatcher;
-//    ProducerState producersState;
 
     ProducerManager() {
-        System.out.println(producersLength + " Producers constructed (default constructor)");
+        System.out.println(producersMaxQant + " Producers constructed (default constructor)");
     }
 
     @PostConstruct
     public void PostConstruct() {
         initiated = true;
-        producers = new Producer[producersLength];
-//        producerStates = new ProducerState[producersLength];
-        System.out.println(producers.length + " Producers initiated in @postConstruct");
+        producers = new ArrayList<>();
+        System.out.println(producers.size() + " Producers initiated in @postConstruct");
     }
 
     public void init(Dispatcher d) {
@@ -38,19 +34,20 @@ public class ProducerManager {
     }
 
     public boolean incProd() {
-        if (pointer == (producersLength - 1))
+        if (producers.size()>producersMaxQant)
             return false;
-        pointer++;
-        if (producers[pointer] == null)
-            producers[pointer] = new Producer(pointer, q);
-        producers[pointer].run();
+        Producer pr = new Producer(producers.size(), q);
+       // pr.run();
+        producers.add(pr);
         return true;
     }
 
     public boolean decProd() {
         if (pointer < 1)
             return false;
-        producers[pointer].stopYourself();
+        int last = producers.size()-1;
+        producers.get(last).stopYourself();
+        producers.remove(last);
         pointer--;
         return true;
     }
@@ -62,15 +59,18 @@ public class ProducerManager {
     }
 
     public String getState() {
-        StringBuilder state = new StringBuilder();
-   //     for (Producer p : producers
-   //          ) {
-
-            state.append("{" + p.toString() +"}");
-    //    }
-
-        System.out.println("ProducerManager" + state.toString());
-        return "{producers:" + state.toString() + "},";
+        if(producers.size()<1) {
+            System.out.println("ProducerManager - there is no active producers");
+            return ("{\"producers\":0,},");
+        }
+        StringBuilder state = new StringBuilder("{\"pproducers\":");
+        for (Producer p : producers) {
+            state
+                  .append(p.toString())
+            .append("},");
+        }
+        state.append("},");
+        return(state.toString());
     }
 
 }

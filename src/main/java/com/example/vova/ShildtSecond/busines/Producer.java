@@ -63,19 +63,22 @@ public class Producer extends Thread {
 
     private void produceOne()
     {
-        q.putProd(selfRef);
-        System.out.println("Producer # " + myNumber + " put 1 more item");
+        //q.putProd(selfRef);
+        //System.out.println("Producer # " + myNumber + " put 1 more item");
         produced++;
     }
+
     @Override
     public String toString(){
-        return  "{" +
-                "class:ProducerState," +
-                "myNumber:" + myNumber +
-                ", timeInterval:" + timeInterval +
-                ",isRunning:" + isRunning +
-                ",produced:" + produced +
-                '}';
+//        System.out.println("Producer # " + myNumber + "toString");
+        return  "{\"pproducer" + myNumber + "\":" +
+                "{" +
+                "\"class\":\"Producer\"," +
+                "\"myNumber\":" + myNumber + "," +
+                "\"timeInterval\":" + timeInterval + "," +
+                "\"isRunning\":" + isRunning + "," +
+                "\"produced\":" + produced +
+                "}";
     }
 
 }
