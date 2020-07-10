@@ -61,15 +61,17 @@ public class ProducerManager {
     public String getState() {
         if(producers.size()<1) {
             System.out.println("ProducerManager - there is no active producers");
-            return ("{\"producers\":0,},");
+            return ("{\"producers\":0}");
         }
-        StringBuilder state = new StringBuilder("{\"pproducers\":");
+        StringBuilder state = new StringBuilder("{\"pproducers\":{");
         for (Producer p : producers) {
             state
                   .append(p.toString())
-            .append("},");
+                    .append(',');
         }
-        state.append("},");
+        int length = state.length();
+        state.deleteCharAt(length-1);
+        state.append("}}");
         return(state.toString());
     }
 

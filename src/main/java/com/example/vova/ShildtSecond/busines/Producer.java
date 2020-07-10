@@ -71,7 +71,7 @@ public class Producer extends Thread {
     @Override
     public String toString(){
 //        System.out.println("Producer # " + myNumber + "toString");
-        return  "{\"pproducer" + myNumber + "\":" +
+        return  "\"producer" + myNumber + "\":" +
                 "{" +
                 "\"class\":\"Producer\"," +
                 "\"myNumber\":" + myNumber + "," +
