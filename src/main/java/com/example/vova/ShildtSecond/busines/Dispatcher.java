@@ -10,6 +10,9 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Component
 @Scope("singleton") // change to prototype
@@ -54,29 +57,71 @@ public class Dispatcher {
         return q;
     }
 
-    public String getState() {
-        return producerManager.getState();
+//    public String getState() {
+//        return producerManager.getState();
+//    }
+
+    public boolean addProducer() {
+        return producerManager.incProd();
     }
 
-    public String processReq(int key) {
-        String resp = "";
-        switch (key) {
+    public boolean decProducer() {
+        return producerManager.decProd();
+    }
 
-            case 10:
-                resp = "{\"Producer_increased\" : " + producerManager.incProd() + "}";
+    public boolean processBtn(String btn) {
+        boolean ret = false;
+        switch (btn) {
+            case "10":
+                ret = addProducer();
                 break;
-            case 12:
-                resp = "{\"Producer_decreased\" : " + producerManager.decProd() + '}';
+            case "12":
+                ret = decProducer();
                 break;
-            case 14:
-                resp = producerManager.getState();
-                break;
-
             default:
-                resp = "{\"Unnknown_buttonn_request\" : " + key + '}';
+                ret = false;
                 break;
         }
-//        System.out.println("{\"Dispatcher_resp\":" + resp + "}");
-        return resp;
+        return ret;
     }
+
+    public ArrayList<Map<String, String>> processReq() {
+//        ArrayList<Map<String, String>> dispatcherState = new ArrayList<>();
+//        producerManager.getProducers();
+//        System.out.println("{\"Dispatcher_resp\":" + resp + "}");
+        return producerManager.getProducers();
+    }
+
+    public ArrayList<ArrayList<Map<String, String>>> give_State() {
+        ArrayList<ArrayList<Map<String, String>>> state = new ArrayList<>();
+        state.add(producerManager.getProducers());
+//        producerManager.getProducers();
+//        System.out.println("{\"Dispatcher_resp\":" + resp + "}");
+        return state;
+    }
+
+    public Map<String, ArrayList<Map<String, String>>> giveState() {
+        Map<String, ArrayList<Map<String, String>>> mapa = new HashMap<>();
+
+        Map<String, String> info = new HashMap<>();
+
+        info.put("Producers", Integer.toString(producerManager.getNumberOfActiveProd()));
+        info.put("Consumers", Integer.toString(consumerManager.getNumberOfActiveCons()));
+        info.put("Q", "Not implemented yet");
+        ArrayList<Map<String, String>> commonInfo = new ArrayList<>();
+        commonInfo.add(info);
+
+
+        ArrayList<Map<String, String>> outer = producerManager.getProducers();
+        mapa.put("CommonInfo", commonInfo);
+        mapa.put("Producers", outer);
+        mapa.put("Consumers", outer);
+        return mapa;
+    }
+
+    private void lora(){
+
+        String[] names = new String[] { "Tana", "Mana", "Anya", "Lena", "Svetka", "Ira"};
+
+}
 }

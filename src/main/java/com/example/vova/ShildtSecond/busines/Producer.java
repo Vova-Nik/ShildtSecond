@@ -8,6 +8,8 @@ import org.springframework.context.annotation.Scope;
 
 import javax.annotation.PreDestroy;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class Producer extends Thread {
@@ -72,7 +74,6 @@ public class Producer extends Thread {
 
     @Override
     public String toString(){
-//        System.out.println("Producer # " + myNumber + "toString");
         return  "\"producer" + myNumber + "\":" +
                 "{" +
                 "\"keys\":[class myNumber timeInterval isRunning produced]," +
@@ -82,6 +83,16 @@ public class Producer extends Thread {
                 "\"isRunning\":" + isRunning + "," +
                 "\"produced\":" + produced +
                 "}";
+    }
+
+    public Map<String, String> getProducer(){
+            Map<String, String> me = new HashMap<>();
+            me.put("class", "Producer");
+            me.put("myNumber", Integer.toString(myNumber));
+            me.put("timeInterval", Integer.toString(timeInterval));
+            me.put("isRunning", Boolean.toString(isRunning));
+            me.put("produced", Integer.toString(produced));
+            return me;
     }
 
 }

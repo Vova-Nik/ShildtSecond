@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
+import java.util.Map;
 
 @Component
 @Scope("singleton")
@@ -59,21 +60,34 @@ public class ProducerManager {
         }
     }
 
-    public String getState() {
-        if(producers.size()<1) {
-            System.out.println("ProducerManager - there is no active producers");
-            return ("{\"producers\":0}");
-        }
-        StringBuilder state = new StringBuilder("{\"pproducers\":{");
+    public int getNumberOfActiveProd(){
+        return producers.size();
+    }
+
+//    public String getState() {
+//        if(producers.size()<1) {
+//            System.out.println("ProducerManager - there is no active producers");
+//            return ("{\"producers\":0}");
+//        }
+//        StringBuilder state = new StringBuilder("{\"pproducers\":{");
+//        for (Producer p : producers) {
+//            state
+//                  .append(p.toString())
+//                    .append(',');
+//        }
+//        int length = state.length();
+//        state.deleteCharAt(length-1);
+//        state.append("}}");
+//        return(state.toString());
+//    }
+
+    public ArrayList<Map<String, String>> getProducers(){
+        ArrayList<Map<String, String>> producersList = new ArrayList<>();
         for (Producer p : producers) {
-            state
-                  .append(p.toString())
-                    .append(',');
+            producersList.add(p.getProducer());
         }
-        int length = state.length();
-        state.deleteCharAt(length-1);
-        state.append("}}");
-        return(state.toString());
+        return producersList;
+
     }
 
 }

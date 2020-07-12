@@ -17,7 +17,9 @@ public class RestReqController {
     private int getCounter = 0;
     private int putCounter = 0;
 
-    private List<Map<String, String>> messages = new ArrayList<Map<String, String>>() {
+    private List<Map<String, String>> messages = new ArrayList<Map<String, String>>()
+
+        {
         {
             add(new HashMap<String, String>() {{
                 put("id", "1");
@@ -40,16 +42,17 @@ public class RestReqController {
     @CrossOrigin
     @GetMapping
 
-//    public String list() {
-//        System.out.println("Get request! " + getCounter);
-//        System.out.println(dispatcher.getState());
-//        getCounter++;
-//        return dispatcher.getState();
+//    public  ArrayList<ArrayList<Map<String, String>>>getRequest(){
+//        ArrayList<ArrayList<Map<String, String>>> ans = new ArrayList<ArrayList<Map<String, String>>>();
+//        ans = dispatcher.giveState();
+//        return ans;
 //    }
-
-    public List<Map<String, String>> list() {
-        return messages;
+    public Map<String, ArrayList<Map<String,String>>> getRequest(){
+        Map<String, ArrayList<Map<String,String>>> ans;
+        ans = dispatcher.giveState();
+        return ans;
     }
+
 
     @GetMapping("{id}")
     public Map<String, String> getOne(@PathVariable String id) {
@@ -72,9 +75,13 @@ public class RestReqController {
             return ("{\"processed\":false}");
         }
 
-        System.out.println(dispatcher.processReq(Integer.parseInt(message.get("btnId"))));
-        return dispatcher.processReq(Integer.parseInt(message.get("btnId")));
-//        return ("{\"processed\":true}");
+        System.out.println(dispatcher.processBtn(message.get("btnId")));
+       boolean res = dispatcher.processBtn(message.get("btnId"));
+       if(res)
+           return ("{\"processed\":true}");
+       else
+           return ("{\"processed\":false}");
+
     }
 
     @PutMapping("{id}")
