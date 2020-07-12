@@ -17,23 +17,38 @@ public class RestReqController {
     private int getCounter = 0;
     private int putCounter = 0;
 
-    private List<Map<String, String>> messages = new ArrayList<Map<String, String>>() {{
-        add(new HashMap<String, String>() {{ put("id", "1"); put("text", "First message"); }});
-        add(new HashMap<String, String>() {{ put("id", "2"); put("text", "Second message"); }});
-        add(new HashMap<String, String>() {{ put("id", "3"); put("text", "Third message"); }});
-    }};
+    private List<Map<String, String>> messages = new ArrayList<Map<String, String>>() {
+        {
+            add(new HashMap<String, String>() {{
+                put("id", "1");
+                put("text", "First message");
+                put("vvv", "my message");
+            }});
+            add(new HashMap<String, String>() {{
+                put("id", "2");
+                put("text", "Second message");
+            }});
+            add(new HashMap<String, String>() {{
+                put("id", "3");
+                put("text", "Third message");
+            }});
+        }
+    };
     @Autowired
     Dispatcher dispatcher; // = context.getBean(Dispatcher.class);
 
     @CrossOrigin
     @GetMapping
-   // public List<Map<String, String>> list() {
-    public String list() {
 
-        System.out.println("Get request! " + getCounter);
-        System.out.println(dispatcher.getState());
-        getCounter++;
-        return "messages";
+//    public String list() {
+//        System.out.println("Get request! " + getCounter);
+//        System.out.println(dispatcher.getState());
+//        getCounter++;
+//        return dispatcher.getState();
+//    }
+
+    public List<Map<String, String>> list() {
+        return messages;
     }
 
     @GetMapping("{id}")
@@ -51,9 +66,9 @@ public class RestReqController {
     @CrossOrigin
     @PostMapping
     public String buttons(@RequestBody Map<String, String> message) {
-        putCounter ++;
-        if(!message.containsKey("btnId")) {
-            System.out.println("Put request! Bad request data" );
+        putCounter++;
+        if (!message.containsKey("btnId")) {
+            System.out.println("Put request! Bad request data");
             return ("{\"processed\":false}");
         }
 
@@ -65,10 +80,8 @@ public class RestReqController {
     @PutMapping("{id}")
     public Map<String, String> update(@PathVariable String id, @RequestBody Map<String, String> message) {
         Map<String, String> messageFromDb = getMessage(id);
-
         messageFromDb.putAll(message);
         messageFromDb.put("id", id);
-
         return messageFromDb;
     }
 

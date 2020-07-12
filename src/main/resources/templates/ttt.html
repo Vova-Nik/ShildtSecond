@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://unpkg.com/vue"></script>
+    <script src="/informer.js"></script>
+    <script src="/rbutton.js"></script>
+    <script src="/hwnd.js"></script>
+    <title>Shildt Vue.js</title>
+    <meta charset="utf-8" />
+</head>
+
+<body>
+    <div ref="header" class="container" style="max-width: 800px;">
+        <div id="app">
+
+            <input type="text" v-on:input="setMessage" />
+            <p>{{message}}</p>
+
+            <hwnd ref="hwnd1" title="HWND1">
+                <!-- <rbutton ref="rbutton1_hwnd1" title="rbutton1"></rbutton>
+                <rbutton ref="rbutton2_hwnd1" title="rbutton2"></rbutton> -->
+            </hwnd>
+
+            <rbutton ref="rbutton1" bid='100'></rbutton>
+        </div>
+
+    </div>
+    Access-Control-Allow-Origin
+
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                message: 'Hello Vue!',
+                timerId: null,
+            },
+            created: function () {
+                console.log('app created()');
+                this.timerId = setInterval(this.tick, 2000);
+            },
+            beforeDestroy: function () {
+                clearInterval(this.timerId);
+                console.log('app beforeDestroy()');
+            },
+            methods: {
+
+                setMessage: function (event) {
+                    this.message = event.target.value;
+                },
+
+
+                tick: function () {
+                    console.log('tick()');
+                    // console.log(app.$refs.hwnd1.$refs.informer1);
+                    // return;
+                    this.request();
+                },
+
+                request: async function () {
+                    const origin = location.origin;
+                    let response = await fetch(
+                        'http://127.0.0.1:8081/message',
+                        //  'http://192.168.0.6:8081/message',
+                        // 'http://192.168.0.101:8081/message',
+                        //'http://192.168.0.100:8081/message',
+                        {
+                            // method: 'post',
+                            method: 'get',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Origin': origin,
+                                'event': 'tick',
+                                'btnClicked': 1,
+                            },
+                            // body: JSON.stringify({
+                            //     "interval": '2000',
+                            // })
+                        });
+                         state = await response.json();
+                        console.log("get - ", state);
+                        // console.log("get0 - ", state[0]);
+                        // app.$refs.hwnd1.$refs.informer1.show(state);
+                },
+            }
+        })
+
+    </script>
+
+</body>
+
+</html>

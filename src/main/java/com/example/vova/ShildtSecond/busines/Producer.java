@@ -47,11 +47,13 @@ public class Producer extends Thread {
 
     @Override
     public void run() {
+        System.out.println("###########################");
         if (isRunning)
             return;
         isRunning = true;
         while (isRunning) {
             produceOne();
+            //System.out.println("###########################");
             try {
                  Thread.sleep(timeInterval);
             } catch (InterruptedException e) {
@@ -73,6 +75,7 @@ public class Producer extends Thread {
 //        System.out.println("Producer # " + myNumber + "toString");
         return  "\"producer" + myNumber + "\":" +
                 "{" +
+                "\"keys\":[class myNumber timeInterval isRunning produced]," +
                 "\"class\":\"Producer\"," +
                 "\"myNumber\":" + myNumber + "," +
                 "\"timeInterval\":" + timeInterval + "," +

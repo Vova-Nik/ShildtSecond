@@ -37,8 +37,9 @@ public class ProducerManager {
         if (producers.size()>producersMaxQant)
             return false;
         Producer pr = new Producer(producers.size(), q);
-       // pr.run();
         producers.add(pr);
+        pr.run();
+
         return true;
     }
 
