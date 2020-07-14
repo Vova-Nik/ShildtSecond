@@ -119,9 +119,4 @@ public class Dispatcher {
         return mapa;
     }
 
-    private void lora(){
-
-        String[] names = new String[] { "Tana", "Mana", "Anya", "Lena", "Svetka", "Ira"};
-
-}
 }

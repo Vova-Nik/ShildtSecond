@@ -4,6 +4,7 @@ Vue.component('hwnd', {
     data: function () {
         return {
             count: 0,
+            informers: [],
 
             styleObject: {
                 border: 'blue 2px solid',
@@ -34,14 +35,41 @@ Vue.component('hwnd', {
         }
     },
     template:
-        `<div v-bind:style = "styleObject">
+        `<div v-bind:style = "styleObject" v-on:infoc = "procInformer($event)">
             <div v-bind:style = "editStyle">{{ title }}</div>
             
             <rbutton ref="rbutton1_hwnd1" title='Prod Add' bid = '10'></rbutton>
             <rbutton ref="rbutton2_hwnd1" title='Prod Rem' bid = '12'></rbutton>
             <rbutton ref="rbutton2_hwnd1" title='Prod Info' bid = '14'></rbutton>
 
-            <informer ref="informer1" title='Prod Info' bid="0"/>
+            <informer 
+                ref="informer0" 
+                v-on:informer-click = "procInformer('click0')" 
+                v-on:informer-create = "informerCreate" 
+                title='Prod Info' 
+                bid="0"
+            />
+            <informer 
+                ref="informer1" 
+                v-on:informer-click = "procInformer('click1')"
+                v-on:informer-create = "informerCreate" 
+                title='Prod Info' 
+                bid="1"
+            />
+            <informer 
+                ref="informer2" 
+                v-on:informer-click = "procInformer('click2')"
+                v-on:informer-create = "informerCreate" 
+                title='Prod Info' 
+                bid="2"
+             />
+            <informer 
+                ref="informer3" 
+                v-on:informer-click = "procInformer('click3')"
+                v-on:informer-create = "informerCreate" 
+                title='Prod Info' 
+                bid="3"
+             />
              
         </div>`,
 
@@ -63,11 +91,19 @@ Vue.component('hwnd', {
     methods: {
         dispatcher: function(stateObject){
             Console.log("dispatch ", stateObject.producer0);
-            // $refs.informer1.
         },
         controller: function(){
             Console.log("dispatch ", stateObject.producer0);
-        }
+        },
+        procInformer: function(ev){
+            console.log('HWND informer emmited event processing in hwnd', ev);
+        },
+        informerCreate: function(ev){
+            // console.log('HWND informer informerCreate', ev);
+            this.informers[ev.bid]=ev.show;
+            console.log('HWND informer informerCreate', this.informers);
+
+        },
     },
 
 });
