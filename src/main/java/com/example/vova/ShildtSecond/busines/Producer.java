@@ -17,6 +17,8 @@ public class Producer extends Thread {
     int myNumber;
     private int timeInterval;
     boolean isRunning = false;
+    boolean inWork = false;
+
     Q q;
     private int produced;
     Producer selfRef;
@@ -24,6 +26,17 @@ public class Producer extends Thread {
     public Producer(int n, Q q) {
         timeInterval = 1000;
         isRunning = false;
+        inWork = false;
+        myNumber = n;
+        this.q = q;
+        selfRef = this;
+        produced = 0;
+    }
+
+    public Producer(int tInterval, int n, Q q) {
+        timeInterval = tInterval;
+        isRunning = false;
+        inWork = false;
         myNumber = n;
         this.q = q;
         selfRef = this;
@@ -43,21 +56,28 @@ public class Producer extends Thread {
         return produced;
     }
 
-    public void stopYourself() {
-        isRunning = false;
+    public void stopRunning() {isRunning = false;}
+    public boolean switchWorkState(){
+        inWork = !inWork;
+        return inWork;
     }
-
-    @Override
-    public void run() {
-        System.out.println("###########################");
-        if (isRunning)
+    public void startRunning() {
+        if(isRunning)
             return;
         isRunning = true;
+        start();
+    }
+    @Override
+    public void run() {
+       // System.out.println("###########################");
         while (isRunning) {
-            produceOne();
-            //System.out.println("###########################");
+            if(inWork) {
+            //    System.out.println("Produced. Producer # " + myNumber);
+                produceOne();
+            }
             try {
                  Thread.sleep(timeInterval);
+                   //System.out.println("Producer.run #" + myNumber);
             } catch (InterruptedException e) {
                 System.out.println("Exception in Producer # " + myNumber);
             }
@@ -67,9 +87,13 @@ public class Producer extends Thread {
 
     private void produceOne()
     {
-        //q.putProd(selfRef);
-        //System.out.println("Producer # " + myNumber + " put 1 more item");
-        produced++;
+        if(isRunning) {
+            //q.putProd(selfRef);
+            //System.out.println("Producer # " + myNumber + " put 1 more item");
+            produced++;
+            return;
+        }
+        return;
     }
 
     @Override
@@ -82,6 +106,7 @@ public class Producer extends Thread {
                 "\"timeInterval\":" + timeInterval + "," +
                 "\"isRunning\":" + isRunning + "," +
                 "\"produced\":" + produced +
+                "\"inWork\":" + inWork + "," +
                 "}";
     }
 
@@ -90,7 +115,7 @@ public class Producer extends Thread {
             me.put("class", "Producer");
             me.put("myNumber", Integer.toString(myNumber));
             me.put("timeInterval", Integer.toString(timeInterval));
-            me.put("isRunning", Boolean.toString(isRunning));
+            me.put("inWork", Boolean.toString(inWork));
             me.put("produced", Integer.toString(produced));
             return me;
     }

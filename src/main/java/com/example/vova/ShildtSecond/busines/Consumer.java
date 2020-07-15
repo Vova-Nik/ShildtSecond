@@ -15,8 +15,6 @@ public class Consumer implements Runnable{
         this.q = q;
     }
 
-
-
     @Override
     public void run(){
         consumeOne();

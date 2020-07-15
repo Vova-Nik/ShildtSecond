@@ -53,13 +53,10 @@ public class MainController {
 //        respBody.put("param1", "Hi");
 //        respBody.put("param2", "There");
 //        respBody.put("param3", 12);
-
 //        Gson gson = new Gson();
 //        String jsonString = gson.toJson(respBody);
 
         Dispatcher dispatcher = context.getBean(Dispatcher.class);
-        dispatcher.sayHi();
-
 
         return ResponseEntity.ok()
                 .header( "ctr", "foo")

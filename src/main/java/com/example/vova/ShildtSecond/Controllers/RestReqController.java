@@ -17,9 +17,7 @@ public class RestReqController {
     private int getCounter = 0;
     private int putCounter = 0;
 
-    private List<Map<String, String>> messages = new ArrayList<Map<String, String>>()
-
-        {
+    private List<Map<String, String>> messages = new ArrayList<Map<String, String>>() {
         {
             add(new HashMap<String, String>() {{
                 put("id", "1");
@@ -41,18 +39,18 @@ public class RestReqController {
 
     @CrossOrigin
     @GetMapping
+    public Map<String, ArrayList<Map<String, String>>> getRequest() {
+        Map<String, ArrayList<Map<String, String>>> ans;
+        ans = dispatcher.giveState();
+//        System.out.println("Get request! ");
+        return ans;
+    }
 
 //    public  ArrayList<ArrayList<Map<String, String>>>getRequest(){
 //        ArrayList<ArrayList<Map<String, String>>> ans = new ArrayList<ArrayList<Map<String, String>>>();
 //        ans = dispatcher.giveState();
 //        return ans;
 //    }
-    public Map<String, ArrayList<Map<String,String>>> getRequest(){
-        Map<String, ArrayList<Map<String,String>>> ans;
-        ans = dispatcher.giveState();
-        return ans;
-    }
-
 
     @GetMapping("{id}")
     public Map<String, String> getOne(@PathVariable String id) {
@@ -70,18 +68,19 @@ public class RestReqController {
     @PostMapping
     public String buttons(@RequestBody Map<String, String> message) {
         putCounter++;
-        if (!message.containsKey("btnId")) {
+        if (!message.containsKey("elementName") && !message.containsKey("elementNumber")){
             System.out.println("Put request! Bad request data");
             return ("{\"processed\":false}");
         }
 
-        System.out.println(dispatcher.processBtn(message.get("btnId")));
-       boolean res = dispatcher.processBtn(message.get("btnId"));
-       if(res)
-           return ("{\"processed\":true}");
-       else
-           return ("{\"processed\":false}");
-
+//        System.out.println(dispatcher.processBtn(message.get("btnId")));
+//        System.out.println(dispatcher.processBtn(message.get("btnId")));
+        boolean res = dispatcher.processBtn(message);
+        System.out.println("POST req message. ElementName:" + message.get("elementName") + " message.elementNumber:" + message.get("elementNumber"));
+        if (res)
+            return ("{\"processed\":true}");
+        else
+            return ("{\"processed\":false}");
     }
 
     @PutMapping("{id}")

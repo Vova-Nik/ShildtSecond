@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -28,25 +29,17 @@ public class Dispatcher {
     private final ProducerManager producerManager;
     private final ConsumerManager consumerManager;
 
-//    StateObject stateObject;
-
     @Autowired
     Dispatcher(ProducerManager pm, ConsumerManager cm, Q qq) {
         producerManager = pm;
         consumerManager = cm;
         q = qq;
-//        stateObject = new StateObject();
         System.out.print("Dispatcher constructor performed \n");
     }
 
     @PostConstruct
     void PostConstruct() {
         System.out.print("Dispatcher  PostConstruct performed \n");
-    }
-
-    public void sayHi() {
-        callCounter++;
-        System.out.println("Dispatcher  sayHi performed. Counter = " + callCounter);
     }
 
     public String getMessage() {
@@ -61,22 +54,24 @@ public class Dispatcher {
 //        return producerManager.getState();
 //    }
 
-    public boolean addProducer() {
-        return producerManager.incProd();
-    }
+//    public boolean addProducer() {
+//        return producerManager.incProd();
+//    }
 
-    public boolean decProducer() {
-        return producerManager.decProd();
-    }
-
-    public boolean processBtn(String btn) {
+    public boolean processBtn(Map<String, String> message) {
         boolean ret = false;
-        switch (btn) {
-            case "10":
-                ret = addProducer();
+        String elName = message.get("elementName");
+        System.out.println("Dispatcher.processBtn elementName:" + elName);
+        switch (elName) {
+            case "Producer":
+                int pnum = Integer.parseInt(message.get("elementNumber"));
+                ret = producerManager.switchProducer(pnum);
                 break;
-            case "12":
-                ret = decProducer();
+            case "consumerInformer":
+                ret = false;
+                break;
+            case "qInformer":
+                ret = true;
                 break;
             default:
                 ret = false;
@@ -102,21 +97,16 @@ public class Dispatcher {
 
     public Map<String, ArrayList<Map<String, String>>> giveState() {
         Map<String, ArrayList<Map<String, String>>> mapa = new HashMap<>();
-
         Map<String, String> info = new HashMap<>();
-
         info.put("Producers", Integer.toString(producerManager.getNumberOfActiveProd()));
         info.put("Consumers", Integer.toString(consumerManager.getNumberOfActiveCons()));
         info.put("Q", "Not implemented yet");
         ArrayList<Map<String, String>> commonInfo = new ArrayList<>();
         commonInfo.add(info);
-
-
         ArrayList<Map<String, String>> outer = producerManager.getProducers();
         mapa.put("CommonInfo", commonInfo);
         mapa.put("Producers", outer);
         mapa.put("Consumers", outer);
         return mapa;
     }
-
 }
