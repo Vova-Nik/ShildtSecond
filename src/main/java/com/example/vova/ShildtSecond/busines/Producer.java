@@ -88,7 +88,7 @@ public class Producer extends Thread {
     private void produceOne()
     {
         if(isRunning) {
-            //q.putProd(selfRef);
+            q.putProd();
             //System.out.println("Producer # " + myNumber + " put 1 more item");
             produced++;
             return;

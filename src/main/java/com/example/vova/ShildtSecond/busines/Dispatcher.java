@@ -42,21 +42,9 @@ public class Dispatcher {
         System.out.print("Dispatcher  PostConstruct performed \n");
     }
 
-    public String getMessage() {
-        return String.format("max_producers %d max_consumers %d ", Integer.parseInt(max_producers), Integer.parseInt(max_consumers));
-    }
-
     public Q getQ() {
         return q;
     }
-
-//    public String getState() {
-//        return producerManager.getState();
-//    }
-
-//    public boolean addProducer() {
-//        return producerManager.incProd();
-//    }
 
     public boolean processBtn(Map<String, String> message) {
         boolean ret = false;
@@ -80,12 +68,12 @@ public class Dispatcher {
         return ret;
     }
 
-    public ArrayList<Map<String, String>> processReq() {
+//    public ArrayList<Map<String, String>> processReq() {
 //        ArrayList<Map<String, String>> dispatcherState = new ArrayList<>();
 //        producerManager.getProducers();
 //        System.out.println("{\"Dispatcher_resp\":" + resp + "}");
-        return producerManager.getProducers();
-    }
+//        return producerManager.getProducers();
+//    }
 
     public ArrayList<ArrayList<Map<String, String>>> give_State() {
         ArrayList<ArrayList<Map<String, String>>> state = new ArrayList<>();
@@ -100,13 +88,19 @@ public class Dispatcher {
         Map<String, String> info = new HashMap<>();
         info.put("Producers", Integer.toString(producerManager.getNumberOfActiveProd()));
         info.put("Consumers", Integer.toString(consumerManager.getNumberOfActiveCons()));
-        info.put("Q", "Not implemented yet");
+        info.put("Q", "1");
         ArrayList<Map<String, String>> commonInfo = new ArrayList<>();
         commonInfo.add(info);
+
         ArrayList<Map<String, String>> outer = producerManager.getProducers();
         mapa.put("CommonInfo", commonInfo);
         mapa.put("Producers", outer);
         mapa.put("Consumers", outer);
+
+        ArrayList<Map<String, String>> qInfo = new ArrayList<>();
+        qInfo.add(q.getState());
+        mapa.put("Q", qInfo);
+
         return mapa;
     }
 }

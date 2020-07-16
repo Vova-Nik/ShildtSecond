@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="shortcut icon" href="https://img.icons8.com/doodle/48/000000/bookmark-ribbon.png" type="image/png">
+    <script src="https://unpkg.com/vue"></script>
+
+<!-- 
+        <script src="../assets/js/informer.js"></script>
+        <script src="../assets/js/rbutton.js"></script>
+        <script src="../assets/js/hwnd.js"></script> -->
+
+        <script src="../static/assets/js/informer.js"></script>
+        <script src="../static/assets/js/rbutton.js"></script>
+        <script src="../static/assets/js/hwnd.js"></script>
+
+    <title>Shildt Vue.js</title>
+
+    <meta charset="utf-8" />
+</head>
+
+<body>
+    <div ref="header" class="container" style="max-width: 1000px; margin: 0 auto;">
+        <div id="app" v-on:informer="procInformer($event)">
+
+            <input type="text" v-on:input="setMessage" />
+            <p>{{message}}</p>
+
+            <hwnd ref="hwnd1" title="HWND1">
+                <!-- <rbutton ref="rbutton1_hwnd1" title="rbutton1"></rbutton>
+                <rbutton ref="rbutton2_hwnd1" title="rbutton2"></rbutton> -->
+            </hwnd>
+
+            <rbutton ref="rbutton1" bid='100'></rbutton>
+        </div>
+
+    </div>
+
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                message: 'Hello Vue!',
+                // informers: ["informer0", "informer1", "informer2", "informer3", "informer4"],
+                ttt: null,
+            },
+            created: function () {
+                console.log('app created()');
+                // this.timerId = setInterval(this.tick, 2000);
+            },
+            beforeDestroy: function () {
+                clearInterval(this.timerId);
+                console.log('app beforeDestroy()');
+            },
+
+            methods: {
+
+                setMessage: function (event) {
+                    this.message = event.target.value;
+                },
+            }
+        })
+
+    </script>
+
+</body>
+
+</html>

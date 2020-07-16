@@ -18,7 +18,7 @@ public class ConsumerManager {
     boolean initiated = false;
     Consumer[] consumers;
     private int pointer = 0;
-    private int consumerLength = 32;
+    private int consumerLength = 16;
     @Autowired
     private Q q;
 
@@ -35,14 +35,13 @@ public class ConsumerManager {
     @PostConstruct
     public void PostConstruct() {
         initiated = true;
-//        q =  dispatcher.getQ();
         consumers = new Consumer[consumerLength];
         System.out.println(consumerLength + " Consumers initiated in @postConstruct");
-    }
-
-    public void init(Dispatcher d) {
-        dispatcher = d;
-        q = dispatcher.getQ();
+        for (int i=0; i<consumerLength; i++) {
+           // Consumer consumer = new Consumer(q, i);
+            consumers[i] = new Consumer(q, i);
+            consumers[i].start();
+        }
     }
 
     private boolean incCons() {
@@ -52,9 +51,9 @@ public class ConsumerManager {
         consumers[pointer].run();
         return true;
     }
-
-    public int getNumberOfActiveCons() {
-        return consumers.length;
+    public int getNumberOfActiveCons(){
+        return consumerLength;
     }
+
 
 }

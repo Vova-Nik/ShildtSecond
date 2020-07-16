@@ -1,5 +1,6 @@
 package com.example.vova.ShildtSecond.busines;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -16,11 +17,11 @@ public class ProducerManager {
     private ArrayList<Producer> producers;
     private int pointer = 0;
     private int producersMaxQant = 8;
+    @Autowired
     private Q q;
     private Dispatcher dispatcher;
 
     ProducerManager() {
-
     }
 
     @PostConstruct
@@ -29,7 +30,7 @@ public class ProducerManager {
         producers = new ArrayList<>();
         Producer pr;
         for(int i=0; i<producersMaxQant; i++) {
-            pr = new Producer(807+i*171, i, q);
+            pr = new Producer(773+i*171, i, q);
             producers.add(i,pr);
             pr.startRunning();
         }
@@ -50,17 +51,6 @@ public class ProducerManager {
         q = dispatcher.getQ();
     }
 
-//    public boolean incProd() {
-//        if (producers.size()>producersMaxQant)
-//            return false;
-//        Producer pr = new Producer(producers.size(), q);
-//        producers.add(pr);
-//        pr.run();
-//
-//        return true;
-//    }
-
-
     public void stop() {
         for (Producer pm : producers) {
             pm.stopRunning();
@@ -70,23 +60,6 @@ public class ProducerManager {
     public int getNumberOfActiveProd(){
         return producers.size();
     }
-
-//    public String getState() {
-//        if(producers.size()<1) {
-//            System.out.println("ProducerManager - there is no active producers");
-//            return ("{\"producers\":0}");
-//        }
-//        StringBuilder state = new StringBuilder("{\"pproducers\":{");
-//        for (Producer p : producers) {
-//            state
-//                  .append(p.toString())
-//                    .append(',');
-//        }
-//        int length = state.length();
-//        state.deleteCharAt(length-1);
-//        state.append("}}");
-//        return(state.toString());
-//    }
 
     public ArrayList<Map<String, String>> getProducers(){
         ArrayList<Map<String, String>> producersList = new ArrayList<>();

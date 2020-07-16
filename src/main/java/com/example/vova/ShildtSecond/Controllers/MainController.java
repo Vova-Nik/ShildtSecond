@@ -7,11 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-import com.google.gson.Gson;
 import org.springframework.context.ApplicationContext;
-
-
-import java.util.HashMap;
 
 @Controller
 
@@ -36,12 +32,13 @@ public class MainController {
         return "multiThreads";
     }
 
-
+    @CrossOrigin
     @RequestMapping(value = "/vue")
     public String vue(ModelMap model) {
         System.out.println("multiThreads simply mapping");
-        return "ThreadsVue";
+        return "vue";
     }
+
     @CrossOrigin
     @RequestMapping(value = "/multiThreads1", method = RequestMethod.POST)
     public ResponseEntity<String> doubleNumber(@RequestHeader("btnClicked") int btnClicked) {

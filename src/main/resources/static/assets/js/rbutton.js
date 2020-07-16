@@ -67,7 +67,7 @@ Vue.component('rbutton', {
             const origin = location.origin;
             let response = await fetch(
                  'http://127.0.0.1:8081/message',
-                // 'http://192.168.0.101:8081/message',
+                 //'http://192.168.0.2:8081/message',
                 //'http://192.168.0.100:8081/message',
 
                 {
@@ -79,7 +79,8 @@ Vue.component('rbutton', {
                         'event': 'restBtnClicked',
                         },
                     body: JSON.stringify({
-                        "btnId": this.bid,
+                        "elementNumber": this.bid,
+                        "elementName": this.title,
                     })
                 });
             // console.log("response is ", response);
