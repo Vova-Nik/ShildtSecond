@@ -5,14 +5,14 @@
     <link rel="shortcut icon" href="https://img.icons8.com/doodle/48/000000/bookmark-ribbon.png" type="image/png">
     <script src="https://unpkg.com/vue"></script>
 
-<!-- 
+
         <script src="../assets/js/informer.js"></script>
         <script src="../assets/js/rbutton.js"></script>
-        <script src="../assets/js/hwnd.js"></script> -->
+        <script src="../assets/js/hwnd.js"></script>
 
-        <script src="../static/assets/js/informer.js"></script>
-        <script src="../static/assets/js/rbutton.js"></script>
-        <script src="../static/assets/js/hwnd.js"></script>
+    <script src="../static/assets/js/informer.js"></script>
+    <script src="../static/assets/js/rbutton.js"></script>
+    <script src="../static/assets/js/hwnd.js"></script>
 
     <title>Shildt Vue.js</title>
 
@@ -23,20 +23,20 @@
     <div ref="header" class="container" style="max-width: 1000px; margin: 0 auto;">
         <div id="app" v-on:informer="procInformer($event)">
 
-            <input type="text" v-on:input="setMessage" />
-            <p>{{message}}</p>
-
             <hwnd ref="hwnd1" title="HWND1">
                 <!-- <rbutton ref="rbutton1_hwnd1" title="rbutton1"></rbutton>
                 <rbutton ref="rbutton2_hwnd1" title="rbutton2"></rbutton> -->
             </hwnd>
 
-            <rbutton ref="rbutton1" bid='100'></rbutton>
+            <rbutton ref="rbutton1" bid='100' name='shutdown' title="Shut down" v-on:rbutton = "btnProcessing" ></rbutton>
         </div>
 
     </div>
 
     <script>
+        const URL = 'http://127.0.0.1:8081';
+        //'http://192.168.0.2:8081/message',
+        //'http://192.168.0.100:8081/message',
         var app = new Vue({
             el: '#app',
             data: {
@@ -54,10 +54,55 @@
             },
 
             methods: {
-
-                setMessage: function (event) {
-                    this.message = event.target.value;
+                btnProcessing(event) {
+                    console.log("vue.html btnProcessing ", event);
+                    if (event.elementName == "shutdown")
+                        this.postStop();
+                    this.request(event);
                 },
+                request: async function () {
+                    const origin = location.origin;
+                    let response = await fetch(
+                        URL + "/message",
+                        {
+                            method: 'post',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Origin': origin,
+                                'btnClicked': 1,
+                                'event': 'restBtnClicked',
+                            },
+                            body: JSON.stringify({
+                                "elementNumber": this.bid,
+                                "elementName": this.title,
+                            })
+                        });
+                    rasp = await response.json();
+                    console.log("response 2nd phase is ", rasp);
+                },
+
+                postStop: async function () {
+                    const origin = location.origin;
+                    let response = await fetch(
+                        URL + "/actuator/shutdown",
+                        {
+                            method: 'post',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Origin': origin,
+                                'btnClicked': "ShutDuwn",
+                                'event': 'restBtnClicked',
+                            },
+                            body: JSON.stringify({
+                                "elementNumber": "/actuator/shutdown",
+                                "elementName": "/actuator/shutdown",
+                            })
+                        });
+                    rasp = await response.json();
+                    console.log("response 2nd phase is ", rasp);
+                },
+
+
             }
         })
 
@@ -66,3 +111,5 @@
 </body>
 
 </html>
+
+// curl -XPOST http://127.0.0.1:8081/actuator/shutdown

@@ -42,6 +42,15 @@ public class Dispatcher {
         System.out.print("Dispatcher  PostConstruct performed \n");
     }
 
+
+    @PreDestroy
+    void PreDestroy() {
+        System.out.print("Dispatcher  PreDestroy() performed \n");
+        producerManager.stopRunning();
+        consumerManager.stopRunning();
+
+    }
+
     public Q getQ() {
         return q;
     }
@@ -68,12 +77,7 @@ public class Dispatcher {
         return ret;
     }
 
-//    public ArrayList<Map<String, String>> processReq() {
-//        ArrayList<Map<String, String>> dispatcherState = new ArrayList<>();
-//        producerManager.getProducers();
-//        System.out.println("{\"Dispatcher_resp\":" + resp + "}");
-//        return producerManager.getProducers();
-//    }
+
 
     public ArrayList<ArrayList<Map<String, String>>> give_State() {
         ArrayList<ArrayList<Map<String, String>>> state = new ArrayList<>();

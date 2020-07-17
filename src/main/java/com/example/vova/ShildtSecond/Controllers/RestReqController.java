@@ -3,6 +3,8 @@ package com.example.vova.ShildtSecond.Controllers;
 import com.example.vova.ShildtSecond.busines.Dispatcher;
 import com.example.vova.ShildtSecond.exceptions.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
+import org.springframework.boot.actuate.endpoint.web.annotation.WebEndpoint;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -97,4 +99,13 @@ public class RestReqController {
 
         messages.remove(message);
     }
+
+//    @Endpoint
+//    @WebEndpoint
+//    //@EndpointWebExtension
+//    public void shutDovn(){
+//        System.out.println("Shutdown !!!!!!!!");
+//    }
+
+
 }

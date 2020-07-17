@@ -59,6 +59,7 @@ Vue.component('hwnd', {
             <div v-bind:style = "styleObject">
                 <div v-bind:style = "editStyle">Q</div>
                 <informer  ref="q0" v-on:informer-create = "informerCreate" title='Consumer' name="qInformer" bid="0" />
+                <rbutton ref="rbutton1" bid='20' name='reset' title="Reset" v-on:rbutton = "btnProcessing" ></rbutton>
             </div>
 
             <div v-bind:style = "styleObject">
@@ -100,6 +101,10 @@ Vue.component('hwnd', {
                  {this.producerInformers[context.bid] = context.redraw; return;}
             if(context.name =='qInformer')
                    this.qInformers[context.bid] = context.redraw;
+        },
+
+        btnProcessing(){
+            
         },
 
         tick: function () {
@@ -148,3 +153,4 @@ Vue.component('hwnd', {
 });
 
         //  <rbutton ref="rbutton2_hwnd1" title='Add Prod' name="addProducerBtn" bid = '10'></rbutton>
+// v-bind:toShow = ['myNumber', 'timeInterval', 'produced']

@@ -37,24 +37,17 @@ public class ProducerManager {
         System.out.println(producers.size() + " Producers initiated in @postConstruct");
     }
 
-    @PreDestroy
-    void PreDestroy() {
+    void stopRunning() {
         for (Producer pr: producers
-             ) {
+        ) {
             pr.stopRunning();
         }
-        System.out.print("Dispatcher  PreDestroy performed \n");
+        System.out.print("ProducerManager  stopRunning() performed \n");
     }
 
     public void init(Dispatcher d) {
         dispatcher = d;
         q = dispatcher.getQ();
-    }
-
-    public void stop() {
-        for (Producer pm : producers) {
-            pm.stopRunning();
-        }
     }
 
     public int getNumberOfActiveProd(){

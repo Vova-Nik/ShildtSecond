@@ -44,13 +44,21 @@ public class ConsumerManager {
         }
     }
 
-    private boolean incCons() {
-        if (pointer == consumerLength)
-            return false;
-        consumers[pointer] = new Consumer(q, pointer);
-        consumers[pointer].run();
-        return true;
+    void stopRunning() {
+        for (Consumer cm: consumers
+        ) {
+            cm.stopRunning();
+        }
+        System.out.print("ConsumerManager  PreDestroy performed \n");
     }
+
+//    private boolean incCons() {
+//        if (pointer == consumerLength)
+//            return false;
+//        consumers[pointer] = new Consumer(q, pointer);
+//        consumers[pointer].run();
+//        return true;
+//    }
     public int getNumberOfActiveCons(){
         return consumerLength;
     }

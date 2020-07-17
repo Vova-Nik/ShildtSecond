@@ -40,15 +40,22 @@ Vue.component('rbutton', {
         bid: {
             type: String,
             default: '0',
-        }
+        },
+        name: {
+            type: String,
+            default: 'rBtn',
+        },
     },
 
     methods: {
         process: function () {
             this.count++;
             console.log("rbutton - ", this.title, this.bid)
-
-            this.request();
+            this.$emit("rbutton", {
+                "elementName": this.name,
+                "elementNumber": this.bid,
+              })
+            //this.request();
         },
         hoverOn: function () {
             this.styleObject.boxShadow = '0px 0px 2px 2px rgba(0,0,0,0.5)'

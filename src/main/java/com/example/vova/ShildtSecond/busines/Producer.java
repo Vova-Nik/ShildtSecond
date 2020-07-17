@@ -82,7 +82,7 @@ public class Producer extends Thread {
                 System.out.println("Exception in Producer # " + myNumber);
             }
         }
-        System.out.println("  - ==> Hello Thread stopped");
+        System.out.println("  - ==> Producer Thread stopped");
     }
 
     private void produceOne()

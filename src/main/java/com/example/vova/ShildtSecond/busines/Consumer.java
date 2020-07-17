@@ -31,6 +31,13 @@ public class Consumer extends Thread {
                 System.out.println("Consumer sleep exception");
             }
         }while(isRunning);
+        System.out.println("  - ==> Consumer Thread stopped");
+    }
+
+    public boolean stopRunning(){
+        isRunning = false;
+        System.out.println("Consumer stopRunning");
+        return true;
     }
 
     public boolean consumeOne() {
@@ -38,8 +45,5 @@ public class Consumer extends Thread {
 //        System.out.println("Consumer consumed: " + consumed);
         return q.giveOutProd();
     }
-    public boolean stopRunning(){
-        isRunning = false;
-        return true;
-    }
+
 }

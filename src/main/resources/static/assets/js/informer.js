@@ -65,7 +65,7 @@ Vue.component('informer', {
         name:{
             type: String,
             default: 'rButton',
-        }
+        },
     },
 
     // beforeUpdate(){ },
@@ -115,7 +115,7 @@ Vue.component('informer', {
             tcontent ="";
 
             for(kk in innerObj){
-                tcontent += kk +":" + innerObj[kk] +" ";
+                tcontent += kk +":" + innerObj[kk] +", ";
             }
 
             //tcontent = "Producer:" + innerObj.myNumber + ",<br> Interval:" + innerObj.timeInterval/1000 + "c" + " <br>Made " + innerObj.produced + " items";
