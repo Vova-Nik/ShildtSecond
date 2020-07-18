@@ -59,7 +59,7 @@ Vue.component('hwnd', {
             <div v-bind:style = "styleObject">
                 <div v-bind:style = "editStyle">Q</div>
                 <informer  ref="q0" v-on:informer-create = "informerCreate" title='Consumer' name="qInformer" bid="0" />
-                <rbutton ref="rbutton1" bid='20' name='reset' title="Reset" v-on:rbutton = "btnProcessing" ></rbutton>
+<!--                <rbutton ref="rbutton1" bid='20' name='reset' title="Reset" v-on:rbutton = "btnProcessing" ></rbutton>-->
             </div>
 
             <div v-bind:style = "styleObject">
@@ -72,6 +72,7 @@ Vue.component('hwnd', {
                 <informer  ref="informer15" v-on:informer-create = "informerCreate" title='Consumer' name="consumerInformer" bid="5" />
                 <informer  ref="informer16" v-on:informer-create = "informerCreate" title='Consumer' name="consumerInformer" bid="6" />
                 <informer  ref="informer17" v-on:informer-create = "informerCreate" title='Consumer' name="consumerInformer" bid="7" />
+                
             </div>
         </div>        
         `,
@@ -100,7 +101,7 @@ Vue.component('hwnd', {
             if(context.name == 'producerInformer')
                  {this.producerInformers[context.bid] = context.redraw; return;}
             if(context.name =='qInformer')
-                   this.qInformers[context.bid] = context.redraw;
+                 this.qInformers[context.bid] = context.redraw;
         },
 
         btnProcessing(){

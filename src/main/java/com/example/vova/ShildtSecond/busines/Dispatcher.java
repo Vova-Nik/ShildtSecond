@@ -57,18 +57,18 @@ public class Dispatcher {
 
     public boolean processBtn(Map<String, String> message) {
         boolean ret = false;
+        int elNum = Integer.parseInt(message.get("elementNumber"));
         String elName = message.get("elementName");
         System.out.println("Dispatcher.processBtn elementName:" + elName);
         switch (elName) {
-            case "Producer":
-                int pnum = Integer.parseInt(message.get("elementNumber"));
-                ret = producerManager.switchProducer(pnum);
+            case "producerInformer":
+                ret = producerManager.switchProducer(elNum);
                 break;
             case "consumerInformer":
-                ret = false;
+                ret = consumerManager.switchConsumer(elNum);
                 break;
             case "qInformer":
-                ret = true;
+                ret = q.switchState();
                 break;
             default:
                 ret = false;
@@ -95,10 +95,11 @@ public class Dispatcher {
         info.put("Q", "1");
         ArrayList<Map<String, String>> commonInfo = new ArrayList<>();
         commonInfo.add(info);
-
-        ArrayList<Map<String, String>> outer = producerManager.getProducers();
         mapa.put("CommonInfo", commonInfo);
+        ArrayList<Map<String, String>> outer = producerManager.getProducers();
         mapa.put("Producers", outer);
+        //ArrayList<Map<String, String>>
+        outer = consumerManager.getConsumers();
         mapa.put("Consumers", outer);
 
         ArrayList<Map<String, String>> qInfo = new ArrayList<>();

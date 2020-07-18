@@ -14,9 +14,11 @@ public class Q {
     int store;
     int recieved = 0;
     int emmited = 0;
+    boolean inWork;
 
     public void Q() {
         store = 0;
+        inWork = true;
         System.out.println("Q created");
     }
 
@@ -29,10 +31,11 @@ public class Q {
                 System.out.println("ReceiveProd waiting exception");
             }
         }
-        store++;
-        recieved++;
-       // System.out.println("Q Received Prod recieved: " + recieved);
-       // store--;
+
+            store++;
+            recieved++;
+            // System.out.println("Q Received Prod recieved: " + recieved);
+
     }
 
     public boolean giveOutProd() {
@@ -52,6 +55,9 @@ public class Q {
         me.put("recieved", Integer.toString(recieved));
         me.put("emmited", Integer.toString(emmited));
         return me;
+    }
+    public boolean switchState(){
+        return true;
     }
 
 }

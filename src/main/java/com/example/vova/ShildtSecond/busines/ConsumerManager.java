@@ -6,6 +6,8 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import java.util.ArrayList;
+import java.util.Map;
 
 @Component
 @Scope("singleton")
@@ -18,15 +20,9 @@ public class ConsumerManager {
     boolean initiated = false;
     Consumer[] consumers;
     private int pointer = 0;
-    private int consumerLength = 16;
+    private int consumerLength = 8;
     @Autowired
     private Q q;
-
-//    @Autowired
-//    ConsumerManager(Dispatcher d){
-//        dispatcher = d;
-//        System.out.println(consumerLength + " ConsumerManager constructed (default constructor)");
-//    }
 
     ConsumerManager() {
         System.out.println(consumerLength + " ConsumerManager constructed (default constructor)");
@@ -52,16 +48,24 @@ public class ConsumerManager {
         System.out.print("ConsumerManager  PreDestroy performed \n");
     }
 
-//    private boolean incCons() {
-//        if (pointer == consumerLength)
-//            return false;
-//        consumers[pointer] = new Consumer(q, pointer);
-//        consumers[pointer].run();
-//        return true;
-//    }
     public int getNumberOfActiveCons(){
         return consumerLength;
     }
 
+    public ArrayList<Map<String, String>> getConsumers(){
+        ArrayList<Map<String, String>> consumersList = new ArrayList<>();
+        for (Consumer c : consumers) {
+            consumersList.add(c.getConsumer());
+        }
+        return consumersList;
+    }
 
+    public boolean switchConsumer(int consNum){
+        return consumers[consNum].switchWorkState();
+    }
+
+//    public boolean switchConsumer(int consNum){
+//        System.out.println("Consumer manager - switchConsumer:" + Integer.toString(consNum));
+//        return consumers.get(consNum).switchWorkState();
+//    }
 }

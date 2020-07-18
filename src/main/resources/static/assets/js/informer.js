@@ -20,12 +20,13 @@ Vue.component('informer', {
                 fontSize: '12px',
                 cursor: 'pointer',
                 textAlign: 'left',
+                backgroundColor: 'tomato',
             },
             indicatorStyle: {
                 width: '20px',
                 padding: '5px',
             },
-            spotStyle:{
+            spotStyle: {
                 border: '1px solid black',
                 borderRadius: '50%',
                 width: '14px',
@@ -35,7 +36,7 @@ Vue.component('informer', {
                 transition: '800ms',
             },
 
-            stateStyle:{
+            stateStyle: {
                 width: '100%',
                 //height: '20px',
                 borderLeft: '1px solid black',
@@ -52,7 +53,7 @@ Vue.component('informer', {
             </div>
            <div class="state" v-bind:style = "stateStyle" v-html="content"></div>
         </div>`,
-        // {{content}}
+    // {{content}}
     props: {
         title: {
             type: String,
@@ -62,7 +63,7 @@ Vue.component('informer', {
             type: String,
             default: '0',
         },
-        name:{
+        name: {
             type: String,
             default: 'rButton',
         },
@@ -72,7 +73,7 @@ Vue.component('informer', {
     // updated: function(){},
 
     created: function () {
-        console.log('informer'+ this.bid + ' - created');
+        console.log('informer' + this.bid + ' - created');
         this.$emit('informer-create', this);
     },
 
@@ -80,51 +81,56 @@ Vue.component('informer', {
         process: function () {
             this.count++;
             console.log("spot clicked - ", this.count)
-            if(this.isOn){
+            if (this.isOn) {
                 this.spotStyle.backgroundColor = 'white';
                 this.spotStyle.border = '1px solid black';
                 this.isOn = false;
             }
-            else{
+            else {
                 this.spotStyle.backgroundColor = 'red';
                 this.spotStyle.border = '1px solid transparent';
                 this.isOn = true;
             }
         },
 
-        dimmer: function(){
+        dimmer: function () {
             // console.log(this.title + " dimmer");
             this.spotStyle.transition = '1500ms';
             this.spotStyle.backgroundColor = 'white';
             this.spotStyle.border = '1px solid black';
         },
 
-        flash: function(color='red'){
+        flash: function (color = 'red') {
             this.spotStyle.transition = '1ms';
             this.spotStyle.backgroundColor = color;
             this.spotStyle.border = '1px solid transparent';
             setTimeout(this.dimmer, 200);
         },
 
-        redraw: function(innerObj){
-            if(!innerObj)
+        redraw: function (innerObj) {
+            if (!innerObj)
                 return;
-            // console.log("Redrow innerObject keys = ", Object.keys(innerObj));
+            // console.log("Redrow innerObject keys = ", innerObj.inWork);
+            if (innerObj.inWork=='false')
+                this.frameStyle.backgroundColor = 'white';
+            if (innerObj.inWork=='true')
+                this.frameStyle.backgroundColor = '#ccffcc';
+
 
             innerObgKeys = Object.keys(innerObj);
-            tcontent ="";
+            tcontent = "";
 
-            for(kk in innerObj){
-                tcontent += kk +":" + innerObj[kk] +", ";
+            for (kk in innerObj) {
+                tcontent += kk + ":" + innerObj[kk] + ", ";
             }
 
             //tcontent = "Producer:" + innerObj.myNumber + ",<br> Interval:" + innerObj.timeInterval/1000 + "c" + " <br>Made " + innerObj.produced + " items";
-            if(tcontent == this.content)
+            if (tcontent == this.content)
                 return;
-            this.content  = tcontent;
+            this.content = tcontent;
             this.flash();
         },
-        
+
         click: function () {
             this.flash('green');
             //console.log('informer clic function--------------------  '+ 'informer ' + " title:" + this.title + " bid:" + this.bid);
@@ -147,13 +153,13 @@ Vue.component('informer', {
                     },
                     body: JSON.stringify({
                         "elementNumber": this.bid,
-                        "elementName": this.title,
+                        "elementName": this.name,
                     })
                 });
             // console.log("response is ", response);
             rasp = await response.json();
             console.log("response 2nd phase is ", rasp);
         },
-}
+    }
 
 });

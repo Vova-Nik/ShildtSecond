@@ -25,7 +25,7 @@ public class Producer extends Thread {
 
     public Producer(int n, Q q) {
         timeInterval = 1000;
-        isRunning = false;
+        isRunning = true;
         inWork = false;
         myNumber = n;
         this.q = q;
@@ -36,7 +36,7 @@ public class Producer extends Thread {
     public Producer(int tInterval, int n, Q q) {
         timeInterval = tInterval;
         isRunning = false;
-        inWork = false;
+        inWork = true;
         myNumber = n;
         this.q = q;
         selfRef = this;
