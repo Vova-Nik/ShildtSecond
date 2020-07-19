@@ -3,8 +3,12 @@
 
 <head>
     <link rel="shortcut icon" href="https://img.icons8.com/doodle/48/000000/bookmark-ribbon.png" type="image/png">
-    <script src="https://unpkg.com/vue"></script>
 
+
+    <link rel="stylesheet" th:href="@{/assets/css/style.css}" type="text/css"/>
+    <link rel="stylesheet" href="../static/assets/css/style.css" type="text/css">
+
+    <script src="https://unpkg.com/vue"></script>
 
         <script src="../assets/js/informer.js"></script>
         <script src="../assets/js/rbutton.js"></script>
@@ -21,6 +25,7 @@
 
 <body>
     <div ref="header" class="container" style="max-width: 1000px; margin: 0 auto;">
+        <header th:insert="bloks/header :: header"></header>
         <div id="app" v-on:informer="procInformer($event)">
 
             <hwnd ref="hwnd1" title="HWND1">
@@ -29,6 +34,7 @@
             </hwnd>
 
             <rbutton ref="rbutton1" bid='100' name='shutdown' title="Shut down" v-on:rbutton = "btnProcessing" ></rbutton>
+            <footer th:insert="bloks/footer :: footer"></footer>
         </div>
 
     </div>
@@ -56,7 +62,7 @@
             methods: {
                 btnProcessing(event) {
                     console.log("vue.html btnProcessing ", event);
-                    if (event.elementName == "shutdown")
+                    if (event.elementName === "shutdown")
                         this.postStop();
                     this.request(event);
                 },
@@ -82,6 +88,7 @@
                 },
 
                 postStop: async function () {
+
                     const origin = location.origin;
                     let response = await fetch(
                         URL + "/actuator/shutdown",

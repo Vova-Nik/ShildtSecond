@@ -10,7 +10,7 @@
     <script src="https://vova-nik.github.io/get.borders/getborders.js"></script>
 
     <link rel="stylesheet" th:href="@{/assets/css/style.css}" type="text/css"/>
-    <link rel="stylesheet" href="../static/assets/css/style.css" type="text/css">
+<!--    <link rel="stylesheet" href="../static/assets/css/style.css" type="text/css">-->
 
 
 <!--    <script src="assets/js/script.js"></script>-->
@@ -24,10 +24,13 @@
     <div class="for_script"></div>
 <!--        <img src="https://docs.spring.io/spring/docs/3.2.x/spring-framework-reference/html/images/spring-overview.png"  alt="">-->
     <p th:text="'Hello, ' + ${message} + '!'"/></p>
+    <p th:text="${myName}">here is</p>
 
     <!--    <script src="../assets/js/script.js"></script>-->
     <!--    <script src="assets/js/script.js"></script>-->
 </div>
+
+<footer th:insert="bloks/footer :: footer"></footer>
 </body>
 
-</html>l
+</html>

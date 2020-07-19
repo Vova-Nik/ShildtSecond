@@ -3,6 +3,7 @@ package com.example.vova.ShildtSecond.Controllers;
 import com.example.vova.ShildtSecond.busines.Dispatcher;
 //import org.apache.catalina.core.ApplicationContext;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -12,15 +13,17 @@ import org.springframework.context.ApplicationContext;
 @Controller
 
 public class MainController {
-    String myName = "Vovchik";
+    String myName = "Vovchikkkk";
 
     @Autowired private ApplicationContext context;
-
+    @Value("${vova.itest}")
+    private String itest;
     @RequestMapping(value = "/")
     public String printHello(ModelMap model) {
         model.addAttribute("message", "Hello Spring MVC Framework!");
         model.addAttribute("title", "Sh2 Index");
-        System.out.println("multiThreads core catched!!!");
+//        model.addAttribute("myName", itest);
+//        System.out.println("multiThreads core catched!!!");
         return "index";
     }
 
@@ -29,6 +32,7 @@ public class MainController {
         System.out.println("multiThreads simply mapping");
         model.addAttribute("message", "multiThreads");
         model.addAttribute("title", "Sh2 multiThreads");
+
         return "multiThreads";
     }
 

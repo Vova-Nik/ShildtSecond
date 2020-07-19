@@ -43,10 +43,20 @@
     /*font-weight: bold;*/
     text-shadow: 2px 2px 2px #CE5937;
 }
+.footer{
+    max-width: 1000px;
+    display: flex;
+    margin: 40px auto;
+    background-color: bisque;
+    padding: 10px 20px;
+    justify-content: space-between;
+    border-top: 1px solid red;
+
+}
 
 /*****************************************Multy Threads**********************************************************/
 .main_container.multi{
-    max-width: 800px;
+    max-width: 1000px;
     margin: 0 auto;
     background-color: beige;
 }

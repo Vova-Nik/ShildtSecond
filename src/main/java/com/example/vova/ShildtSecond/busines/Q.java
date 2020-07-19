@@ -21,8 +21,8 @@ public class Q {
         inWork = true;
         System.out.println("Q created");
     }
-
-    public synchronized  void  putProd() {
+//synchronized
+    public synchronized void putProd() {
         while(store >= maxItemsInStore)
         {
             try{
@@ -38,7 +38,7 @@ public class Q {
 
     }
 
-    public boolean giveOutProd() {
+    public synchronized boolean giveOutProd() {
 //         System.out.println("Q gave Prod : " + emmited);
         if (store < 1)
             return false;
